@@ -49,7 +49,7 @@
                                 <div class="bottom" v-tap="(this.tempOrderNo = order.orderNo,this.showConfirm.pay = true)">确认付款</div>
                             </div>
                             <div class="operate" v-if="order.appt.payMethod == 2">
-                                <div class="bottom" v-tap="insPay(order.orderNo,order.customerId)">分期付款</div>
+                                <div class="bottom" v-tap="insPay(order.orderNo,order.customerId)">已付款</div>
                             </div>
                         </div>
                     </div>
@@ -196,6 +196,7 @@ export default {
                 size: 1000
             }
         }).then((res) => {
+            console.log(res)
             res.data.data.map((order) => {
                 switch (order.status) {
                     case 1:
@@ -229,6 +230,7 @@ export default {
             })
         }).catch((err) => {
             throw err
+            console.log(err)
         })
     },
     methods: {
