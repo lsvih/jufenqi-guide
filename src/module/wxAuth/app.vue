@@ -14,11 +14,7 @@ export default {
         }
     },
     ready() {
-        if (Lib.M.isAuth()) {
-            location.href = this.lastUrl
-        } else {
-            this.getCode()
-        }
+        this.getCode()
     },
     methods: {
         getCode() {
@@ -32,6 +28,9 @@ export default {
                     responseType: 'json'
                 }).then((res) => {
                     window.localStorage.setItem("user", JSON.stringify(res.data.data))
+                    let a = JSON.parse(window.localStorage.getItem('user')).profile.nickname
+                    alert(a)
+                    console.log(res.data.data)
                     location.href = this.lastUrl
                 }).catch((res) => {
                     alert("微信登录失败，请稍后重试")
@@ -39,6 +38,7 @@ export default {
                     return false;
                 })
             } else {
+                alert('再打个断点')
                 let a = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${this.appId}&redirect_uri=${location.href}&response_type=code&scope=SCOPE&state=STATE#wechat_redirect`
                 location.href = a
             }
